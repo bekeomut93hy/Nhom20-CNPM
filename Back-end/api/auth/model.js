@@ -8,6 +8,10 @@ const user = new Schema({
   accessToken: String,
   gender: String,
   rangeAge : Number,
+  isHide : {
+    type : Boolean,
+    default : false
+  },
   lookingGender : {
     type : String,
     default : "Tất cả"

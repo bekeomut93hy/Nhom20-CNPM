@@ -15,9 +15,13 @@ class card extends Component {
             withCredentials: true,
             method: "get",
         }).then(async res => {
+            if(res.data){
             await this.setState({
                 listPeople: JSON.parse(res.data)
             })
+            }
+            console.log(this.state.listPeople)
+            console.log(this.state.index)
         }).catch(err => {
             console.log(err.message);
         })
@@ -27,8 +31,8 @@ class card extends Component {
             url: "http://localhost:3001/auth/addLikePeople",
             withCredentials: true,
             method: "post",
-            data : {
-                _id : this.state.listPeople[this.state.index]
+            data: {
+                _id: this.state.listPeople[this.state.index]
             }
         }).then(res => {
             console.log(res.data)
@@ -43,7 +47,7 @@ class card extends Component {
         await this.setState({
             index: this.state.index + 1
         })
-    
+
     }
     render() {
         const styleBorder = {
@@ -57,12 +61,19 @@ class card extends Component {
                     return (
                         <div className="animated zoomIn " style={styleBorder} >
                             {
-                                this.state.listPeople != null ? <div className="card" style={{ width: "18rem" }}>   
-                                    <img src={this.state.listPeople[this.state.index].avatarUrl[0]} alt="" className="card-img-top" />
-                                    <div className="card-body">
-                                        <Info state={this.state.listPeople[this.state.index]} />
+                                (this.state.listPeople != null && this.state.index <= this.state.listPeople.length && this.state.listPeople.length !=0) ?
+                                    <div className="card" style={{ width: "18rem" }}>
+                                        <img src={this.state.listPeople[this.state.index].avatarUrl[0]} alt="" className="card-img-top" />
+                                        <div className="card-body">
+                                            <Info state={this.state.listPeople[this.state.index]} />
+                                        </div>
+                                    </div> : 
+                                    <div className="card" style={{ width: "18rem" }}>
+                                        <img src="https://img.thuthuatphanmem.vn/uploads/2018/09/22/avatar-den-dep-2_015639673.png" alt="" className="card-img-top" />
+                                        <div className="card-body">
+                                           <h3 className="text-center">Em đen lắm</h3>
+                                        </div>
                                     </div>
-                                </div> : null
 
                             }
                         </div>

@@ -210,6 +210,13 @@ router.post("/editProfile", async (req, res) => {
     await UserModel.updateOne({ _id: req.body._id }, { $set: { introduce: req.body.introduce, school: req.body.school, gender: req.body.gender } });
     res.status(201).json({ message: "OK" });
 })
+// change Status
+router.post("/changeStatus", async (req,res)=>{
+    const userId= req.session.user._id;
+    const status = !Boolean(req.body.status);
+    await UserModel.updateOne({_id : userId}, {$set:{isHide : status}});
+    res.status(201).json({message : "OK"});
+})
 // upload image
 router.post("/uploadImage", async (req, res) => {
     try {
@@ -278,6 +285,7 @@ router.get("/lookingPeople", async (req, res) => {
         const LikeArray = Array.from((await UserModel.findById(userId, "Like")).Like).map(item => item.id);
         const FindPeople = await UserModel.find({
             $and: [
+                { isHide : false},
                 { _id: { $not: { $eq: userId } } },
                 { $and: [{ age: { $gte: 18 }, age: { $lte: Number(lookupAge) } }] },
                 { gender: lookupGender },

@@ -17,6 +17,7 @@ class chatpage extends Component {
         school: '',
         verify: null,
         usergender: '',
+        status : '',
         gender: null,
         infoModeMess: null,
         listItemMatch: null,
@@ -31,6 +32,7 @@ class chatpage extends Component {
             const birth = new Date(res.data.user.birthday).getFullYear();
             await this.setState({
                 _id: res.data.user._id,
+                status : res.data.user.isHide,
                 verify: res.data.user.verify,
                 name: res.data.user.name,
                 email: res.data.user.email,
@@ -47,17 +49,18 @@ class chatpage extends Component {
         }).catch(err => {
             console.log(err);
         })
-        await Axios({
-            url: "http://localhost:3001/auth/getInfoPeople",
-            withCredentials: true,
-            method: "get",
-        }).then(res => {
-            this.setState({
-                listItemMatch: JSON.parse(res.data)
-            })
-        }).catch(err => {
-            console.log(err);
-        })
+        // Lay Ket Doi
+        // await Axios({
+        //     url: "http://localhost:3001/auth/getInfoPeople",
+        //     withCredentials: true,
+        //     method: "get",
+        // }).then(res => {
+        //     this.setState({
+        //         listItemMatch: JSON.parse(res.data)
+        //     })
+        // }).catch(err => {
+        //     console.log(err);
+        // })
     }
     _handleChangeAge = (e) => {
         this.setState({

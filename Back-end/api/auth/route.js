@@ -15,10 +15,10 @@ router.get("/getId", async (req, res) => {
     if (req.session.user) {
         const _id = req.session.user._id;
         const user = await UserModel.findById(_id).exec();
-        res.status(200).json({ user: user });
+        res.status(200).json({ user: user  });
     }
     else
-        res.status(200).json({ user: "Unknown" });
+        res.status(200).json({ logout : true });
 })
 // check login
 router.get("/isLoggin", async (req, res) => {

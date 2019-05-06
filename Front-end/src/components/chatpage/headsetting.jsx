@@ -6,8 +6,8 @@ class headsetting extends Component {
     
     render() {
         const styleBackground = {
-            background: "#f5f7fa",
-            margin: "0",
+            background: "#ffffff",
+            borderRight: "1px solid rgba(212, 205, 205,0.5)",
         }
         const styleFontRed = {
             background: "#fd5068",

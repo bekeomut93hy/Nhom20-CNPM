@@ -59,7 +59,7 @@ class editprofile extends Component {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Đồng ý'
+            confirmButtonText: 'Đồng ý',
         }).then(async (result) => {
             await storage.refFromURL(this.state.deleteImage).delete();
             await Axios({

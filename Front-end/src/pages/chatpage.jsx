@@ -22,7 +22,6 @@ class chatpage extends Component {
         listItemMatch: null,
     }
     async componentWillMount() {
-
         await Axios({
             url: "http://localhost:3001/auth/getId",
             withCredentials: true,
@@ -54,7 +53,7 @@ class chatpage extends Component {
             method: "get",
         }).then(res => {
             this.setState({
-                listItemMatch: res.data
+                listItemMatch: JSON.parse(res.data)
             })
         }).catch(err => {
             console.log(err);

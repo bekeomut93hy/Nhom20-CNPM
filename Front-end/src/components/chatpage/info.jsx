@@ -34,7 +34,7 @@ class Info extends Component {
                     </div>
                 }
 
-                {this.props.state.introduce == null ?
+                {this.props.state.introduce === (null|| "") ?
                     <div style={styleChu2}>
                         <span>Thêm giới thiệu về bạn nào</span>
                     </div> :

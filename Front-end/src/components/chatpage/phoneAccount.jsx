@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Axios from 'axios'
-import Swal from 'sweetalert2'
 class phoneAccount extends Component {
     _handleVerify = ()=>{
         console.log("alo");

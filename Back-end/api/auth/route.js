@@ -249,7 +249,7 @@ router.get("/getInfoPeople", async (req, res) => {
                 }
             }
         for (let i = 0; i < THArray.length; ++i) {
-            const user = await UserModel.findById(THArray[i], "name birthday introduce school avatarUrl gender contact");
+            const user = await UserModel.findById(THArray[i], "name birthday introduce school avatarUrl gender contact age");
             userArray.push(user)
         }
         res.status(200).send(JSON.stringify(userArray));
@@ -283,7 +283,7 @@ router.get("/lookingPeople", async (req, res) => {
                 { gender: lookupGender },
                 {_id : {$nin : LikeArray}}
             ]
-        } , "name birthday introduce school avatarUrl gender contact");
+        } , "name birthday introduce school avatarUrl gender contact age");
         res.status(200).json(JSON.stringify(FindPeople))
     } catch (error) {
         res.status(500).end(error.message);

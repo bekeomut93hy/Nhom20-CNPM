@@ -15,24 +15,35 @@ class card extends Component {
             withCredentials: true,
             method: "get",
         }).then(async res => {
-           await this.setState({
-               listPeople : res.data
-           })
+            await this.setState({
+                listPeople: JSON.parse(res.data)
+            })
         }).catch(err => {
             console.log(err.message);
-        }) 
+        })
     }
     _handleLike = async () => {
+        await Axios({
+            url: "http://localhost:3001/auth/addLikePeople",
+            withCredentials: true,
+            method: "post",
+            data : {
+                _id : this.state.listPeople[this.state.index]
+            }
+        }).then(res => {
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err.message);
+        })
         await this.setState({
             index: this.state.index + 1
         })
-        console.log("like");
     }
     _handleCancel = async () => {
         await this.setState({
             index: this.state.index + 1
         })
-        console.log("cancel");
+    
     }
     render() {
         const styleBorder = {
@@ -43,16 +54,18 @@ class card extends Component {
         return (
             <div className="mx-auto my-auto">
                 <Route path="/app/recs" render={() => {
-                    console.log("card")
                     return (
                         <div className="animated zoomIn " style={styleBorder} >
-                        <div className="card" style={{ width: "18rem" }}>
-                            <img src={this.props.state.avatarUrl} className="card-img-top" />
-                            <div className="card-body">
-                                <Info state={this.props.state} />
-                            </div>
+                            {
+                                this.state.listPeople != null ? <div className="card" style={{ width: "18rem" }}>   
+                                    <img src={this.state.listPeople[this.state.index].avatarUrl[0]} alt="" className="card-img-top" />
+                                    <div className="card-body">
+                                        <Info state={this.state.listPeople[this.state.index]} />
+                                    </div>
+                                </div> : null
+
+                            }
                         </div>
-                    </div>
                     )
                 }} />
 
@@ -60,7 +73,7 @@ class card extends Component {
                     return (
                         <div className="animated zoomIn" style={styleBorder} >
                             <div className="card" style={{ width: "18rem" }}>
-                                <img src={this.props.state.avatarUrl} className="card-img-top" />
+                                <img src={this.props.state.avatarUrl} alt="" className="card-img-top" />
                                 <div className="card-body">
                                     <Info state={this.props.state} />
                                 </div>
@@ -69,7 +82,6 @@ class card extends Component {
                     )
                 }} />
                 <Route path="/app/recs" render={() => {
-                    console.log("emotion")
                     return <div id="game-pad" className="d-flex justify-content-around animated rollIn align-items-center" style={{ padding: "10px" }}>
                         <LikeButton handleLike={this._handleLike} />
                         <CancelButton handleCancel={this._handleCancel} />

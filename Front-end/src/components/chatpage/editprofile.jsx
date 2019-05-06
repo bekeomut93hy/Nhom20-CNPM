@@ -4,7 +4,6 @@ import UploadImage from "./uploadImage"
 import { storage } from '../firebase/index'
 import { withRouter } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { async } from '@firebase/util';
 class editprofile extends Component {
     state = {
         upload: false,
@@ -21,7 +20,7 @@ class editprofile extends Component {
             confirmButtonText: 'Tải ảnh lên',
             showLoaderOnConfirm: true,
             preConfirm: async (image) => {
-                const uploadTask = await storage.ref(`images/${this.props.state._id}/${image.name}`).put(image);
+                await storage.ref(`images/${this.props.state._id}/${image.name}`).put(image);
                 await storage.ref('images').child(this.props.state._id).child(image.name).getDownloadURL().then(async url => {
                     console.log(url);
                     await Axios({
@@ -110,6 +109,7 @@ class editprofile extends Component {
             }
         }).then((res) => {
             console.log("OK");
+            window.location.reload();
             this.props.history.goBack();
         }).catch(err => {
             console.log(err)
@@ -169,8 +169,8 @@ class editprofile extends Component {
                     </div>
                     <div className="col-12">
                         <select id="gender" className="custom-select custom-select-sm">
-                            <option defaultValue value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
+                            <option defaultValue value={this.props.state.usergender}>{this.props.state.usergender}</option>
+                            <option value={this.props.state.usergender==="Nam"?"Nữ" : "Nam"}>{this.props.state.usergender==="Nam"?"Nữ" : "Nam"}</option>
                         </select>
                     </div>
                 </div>

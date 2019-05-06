@@ -4,9 +4,6 @@ import EditProfile from "./editprofile"
 import Card from "./card"
 class profile extends Component {
     render() {
-        const style = {
-            backgroundColor: "red",
-        }
         return (
             <div className="animated fadeIn mx-auto my-auto">
                 <Route exact path="/app/profile" render={() => {

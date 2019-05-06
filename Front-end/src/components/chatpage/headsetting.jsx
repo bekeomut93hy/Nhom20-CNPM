@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from "./navbar"
-import Card from "./card"
 import Infotable from "./infortable"
-import { BrowserRouter as Router, withRouter, Link, Route } from "react-router-dom"
+import { withRouter, Link, Route } from "react-router-dom"
 class headsetting extends Component {
     
     render() {

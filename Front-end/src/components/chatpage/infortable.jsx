@@ -3,7 +3,7 @@ import SwitchButton from "../common/button";
 import GenderSetting from "./genderSetting";
 import EmailAccount from "./emailAccount";
 import PhoneAccount from "./phoneAccount";
-import { BrowserRouter as Router, withRouter, Link, Route } from "react-router-dom";
+import {  withRouter, Link, Route } from "react-router-dom";
 class infortable extends Component {
     render() {
         const styleRow = {
@@ -14,9 +14,6 @@ class infortable extends Component {
             textTransform: "uppercase",
             fontWeight: "bold",
             color: "red"
-        }
-        const styleTrang = {
-            background: "#FFF",
         }
 
         return (
@@ -46,7 +43,7 @@ class infortable extends Component {
                                     <div className="ml-auto mr-2">
                                         <span> 18 - {this.props.setting.rangeAge} </span>
                                     </div>
-                                    <input onChange={this.props.handleChangeAge} type="range" className="custom-range mx-2" min="18" max="72" value={this.props.setting.age} step="1" />
+                                    <input onChange={this.props.handleChangeAge} type="range" className="custom-range mx-2" min="18" max="72" value={this.props.setting.rangeAge} step="1" />
                                 </div>
                             
                             <div className="row" style={styleRow}>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Card from "../chatpage/card"
 import Profile from "./profile"
-import Axios from 'axios';
-import { BrowserRouter as Router, withRouter, Link, Route } from "react-router-dom";
+import {  withRouter, Route } from "react-router-dom";
 class rightSide extends Component {
     render() {
         const styleBackground = {

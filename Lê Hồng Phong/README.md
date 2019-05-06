@@ -1,4 +1,4 @@
-## Nhom20-CONG NGHE PHAN MEM
+## Nhom20-CNPM
 # Họ và Tên : Lê Hồng Phong
 ## MSV : 17020952
 ## Nhóm dự án : nhóm 20

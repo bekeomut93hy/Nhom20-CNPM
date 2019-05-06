@@ -5,8 +5,7 @@
 # Báo cáo bài tập lớn Công nghệ phần mềm
 
 # Bài tập nhóm : Dự án "Tinder UET8"
-* User story:
-1) Là một người dùng, tôi muốn có dao diện đăng nhập dễ nhìn, tài khoản được lưu lại để sử dụng cho các lần đăng nhập sau
+* User story: Là một người dùng, tôi muốn có dao diện đăng nhập dễ nhìn, tài khoản được lưu lại để sử dụng cho các lần đăng nhập sau
   - Tạo form đăng nhập bằng facebook và số điện thoại
   - Tạo database lưu trữ thông tin của người dùng
   - Lấy thông tin cá nhân của người dùng trên facebook sau đó lưu dữ liệu vào database

@@ -1,13 +1,14 @@
+"1:1058592706762:web:465c4b981a145525"
 import firebase from 'firebase/app'
 import 'firebase/storage'
 var firebaseConfig = {
-    apiKey: "AIzaSyBOgGI7eHXIQAKGtZaB1IM3xoiuc29xu8w",
-    authDomain: "uet-tinder-image.firebaseapp.com",
-    databaseURL: "https://uet-tinder-image.firebaseio.com",
-    projectId: "uet-tinder-image",
-    storageBucket: "uet-tinder-image.appspot.com",
-    messagingSenderId: "841568905597",
-    appId: "1:841568905597:web:dbfcfebb06150e32"
+    apiKey: "AIzaSyBKWYv0MyEgXlB4yTWmQy4-Lllc-0FlDsY",
+    authDomain: "uet-tinder-a9c6c.firebaseapp.com",
+    databaseURL: "https://uet-tinder-a9c6c.firebaseio.com",
+    projectId: "uet-tinder-a9c6c",
+    storageBucket: "uet-tinder-a9c6c.appspot.com",
+    messagingSenderId: "1058592706762",
+    appId: "1:1058592706762:web:465c4b981a145525"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);

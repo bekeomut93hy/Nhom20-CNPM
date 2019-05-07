@@ -228,6 +228,18 @@ router.post("/uploadImage", async (req, res) => {
         res.status(501).end(error);
     }
 })
+// choose Avatar 
+router.post("/chooseAvatar", async (req,res)=>{
+    try {
+        const userId= "5ccfb64559c45d18ccc48671" //req.session.user._id;
+        const url = req.body.url;
+        await UserModel.updateOne({ _id: userId }, { $pull: { avatarUrl: url } });
+        await UserModel.updateOne({_id : userId} , {$push : { avatarUrl : {$each : [url],  $position : 0}}})
+        res.status(201).json({message : "OK"});
+    } catch (error) {
+        res.status(501).end(error);
+    }
+})
 // delete image 
 router.post("/deleteImage", async (req, res) => {
     try {

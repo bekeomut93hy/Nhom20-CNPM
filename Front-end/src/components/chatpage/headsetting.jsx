@@ -35,11 +35,11 @@ class headsetting extends Component {
                         )
                     }} />
                     <div className="col-2 ml-1 my-3">
-                        <img className="rounded-circle" src={this.props.state.avatarUrl[0]} alt="Unknown" />
+                        <img className="rounded-circle" style={{height : "50px", width :"50px"}}src={this.props.state.avatarUrl[0]} alt="Unknown" />
                     </div>
                     <div className="col-7" >
                         <Link to="/app/profile" className="text-decoration-none" >
-                            <h5> Thông tin của tôi </h5>
+                            <h5 className="hvr-buzz-out"> Thông tin của tôi </h5>
                         </Link>
                     </div>
 

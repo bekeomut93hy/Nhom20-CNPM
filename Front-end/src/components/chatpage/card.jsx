@@ -3,7 +3,7 @@ import Info from "./info";
 import LikeButton from './likebutton';
 import CancelButton from "./cacelbutton";
 import Swal from "sweetalert2"
-import { Route , Link} from "react-router-dom"
+import { Route, Link } from "react-router-dom"
 import Axios from 'axios';
 class card extends Component {
     state = {
@@ -106,16 +106,20 @@ class card extends Component {
                 <Route path="/app/recs" render={() => {
                     return (
                         <div>
-                            <div id="game-pad" className="d-flex justify-content-around animated rollIn align-items-center" style={{ padding: "10px" }}>
-                                <LikeButton handleLike={this._handleLike} />
-                                <CancelButton handleCancel={this._handleCancel} />
+                            {
+                                this.props.state.listPeople ?
+                                <div id="game-pad" className="d-flex justify-content-around animated rollIn align-items-center" style={{ padding: "10px" }}>
+                                    <LikeButton handleLike={this._handleLike} />
+                                    <CancelButton handleCancel={this._handleCancel} />
+                                </div> :
+                                <div>
+                                    <Link to="/app/profile" className="text-decoration-none d-flex justify-content-around  align-items-center" >
+                                        <button className="animated fadeIn my-2 text-white btn btn-grad text-center btn-sm col-4 mx-auto register" style={{ fontSize: "18px" }}>Cài đặt</button>
+                                    </Link>
+                                </div>
+                            }
 
-                            </div>
-                            <div>
-                                <Link to="/app/profile" className="text-decoration-none d-flex justify-content-around  align-items-center" >
-                                    <button className="animated fadeIn my-2 text-white btn btn-grad text-center btn-sm col-4 mx-auto register" style={{ fontSize: "18px" }}>Cài đặt</button>
-                                </Link>
-                            </div>
+
                         </div>
                     )
 

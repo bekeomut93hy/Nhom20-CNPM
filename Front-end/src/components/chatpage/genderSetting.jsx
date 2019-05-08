@@ -6,7 +6,7 @@ class genderSetting extends Component {
     }
     render() {
         return (
-            <div className="col-12 animated slideInLeft delay-0.5s faster"> 
+            <div className="animated slideInLeft delay-0.5s faster" style={{width: "100%"}}> 
                 <div onClick={()=>{return this.handleChangeGender("Nam")}} className="inputGroup">
                     <input id="radio1" name="radio" type="radio" />
                     <label htmlFor="radio1">Nam</label>

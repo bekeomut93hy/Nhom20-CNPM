@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { storage } from '../firebase/Image'
+import { storage } from '../firebase/index'
 import { withRouter } from 'react-router-dom'
 import Swal from 'sweetalert2'
 class editprofile extends Component {

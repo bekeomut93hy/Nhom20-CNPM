@@ -21,6 +21,7 @@ class chatpage extends Component {
         gender: null,
         infoModeMess: null,
         listItemMatch: null,
+        listMessage : null,
     }
     async componentWillMount() {
         await Axios({
@@ -51,18 +52,22 @@ class chatpage extends Component {
         }).catch(err => {
             console.log(err);
         })
-        // Lay Ket Doi
-        // await Axios({
-        //     url: "http://localhost:3001/auth/getInfoPeople",
-        //     withCredentials: true,
-        //     method: "get",
-        // }).then(res => {
-        //     this.setState({
-        //         listItemMatch: JSON.parse(res.data)
-        //     })
-        // }).catch(err => {
-        //     console.log(err);
-        // })
+        await Axios({
+            url: "http://localhost:3001/auth/getInfoPeople",
+            withCredentials: true,
+            method: "get",
+        }).then(res => {
+            this.setState({
+                listItemMatch: JSON.parse(res.data)
+            })
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+    _handleGetMessage = (listarray)=>{
+        this.setState({
+            listMessage : listarray
+        })
     }
     _handleChangeAge = (e) => {
         this.setState({
@@ -119,6 +124,7 @@ class chatpage extends Component {
                     />
                     <RightSide
                         state={this.state}
+                        handleGetMessage={this._handleGetMessage}
                     />
                 </Router>
             </div>

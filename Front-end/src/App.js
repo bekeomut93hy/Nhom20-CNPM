@@ -39,6 +39,7 @@ class App extends Component {
           <Route path='/app/recs' component={Chatpage} />
           <Route path='/app/profile' component={Chatpage} />
           <Route path='/app/setting' component={Chatpage} />
+          <Route path='/app/message' component={Chatpage} />
         </BrowserRouter>
       </div>
     );

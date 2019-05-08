@@ -10,8 +10,9 @@ class ChatTable extends Component {
         conversation: new Array(),
     }
 
-    componentDidMount() {
-        this.loadConversations();
+    async componentDidMount() {
+        await this.loadConversations();
+        //handleGetMessage={this.props.handleGetMessage
     }
 
     loadConversations = async () => {
@@ -80,8 +81,9 @@ class ChatTable extends Component {
 
                     }
                 }
-
+                this.props.handleGetMessage(this.state.conversation);
             });
+         
     };
 
 

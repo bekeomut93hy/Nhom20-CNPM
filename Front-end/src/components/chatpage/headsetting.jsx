@@ -13,7 +13,6 @@ class headsetting extends Component {
             background: "#fd5068",
             borderBottom: "1px solid rgba(212, 205, 205,0.5)"
         }
-        
         return (
             <div id="Headsetting" className="col-sm-12 col-md-3" style={styleBackground}>
                 <div className="row align-items-center" style={styleFontRed}>
@@ -27,6 +26,13 @@ class headsetting extends Component {
                     }} />
 
                     <Route  path="/app/setting" render={() => {
+                        return (
+                            <div onClick={this.props.handleGoBack} className="col-2 animated bounceInLeft faster">
+                                <span className="close">&times;</span>
+                            </div>
+                        )
+                    }} />
+                     <Route  path="/app/message" render={() => {
                         return (
                             <div onClick={this.props.handleGoBack} className="col-2 animated bounceInLeft faster">
                                 <span className="close">&times;</span>
@@ -57,6 +63,13 @@ class headsetting extends Component {
                     )
                 }} />
                 <Route path="/app/recs" render={() => {
+                    return (<Navbar
+                        changeMode={this.props.handleInfoMode}
+                        mode={this.props.state.infoModeMess}
+                        state={this.props.state}
+                    />)
+                }} />
+                   <Route path="/app/message" render={() => {
                     return (<Navbar
                         changeMode={this.props.handleInfoMode}
                         mode={this.props.state.infoModeMess}

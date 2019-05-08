@@ -231,7 +231,7 @@ router.post("/uploadImage", async (req, res) => {
 // choose Avatar 
 router.post("/chooseAvatar", async (req,res)=>{
     try {
-        const userId= "5ccfb64559c45d18ccc48671" //req.session.user._id;
+        const userId= req.session.user._id;
         const url = req.body.url;
         await UserModel.updateOne({ _id: userId }, { $pull: { avatarUrl: url } });
         await UserModel.updateOne({_id : userId} , {$push : { avatarUrl : {$each : [url],  $position : 0}}})
@@ -271,7 +271,7 @@ router.get("/getInfoPeople", async (req, res) => {
             const user = await UserModel.findById(THArray[i], "name birthday introduce school avatarUrl gender contact age");
             userArray.push(user)
         }
-        res.status(200).send(JSON.stringify(userArray));
+        res.status(200).json(JSON.stringify(userArray));
     } catch (error) {
         res.status(500).end(error.message);
     }

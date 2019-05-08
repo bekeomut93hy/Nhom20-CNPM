@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from "../chatpage/card"
 import Profile from "./profile"
+import ChatTable  from "./chattable"
 import {  withRouter, Route } from "react-router-dom";
 class rightSide extends Component {
     render() {
@@ -15,6 +16,12 @@ class rightSide extends Component {
                        return ( <Card 
                         state={this.props.state} 
                         />
+                       )
+                    }}/>
+                    <Route path='/app/message' render={()=>{
+                       return ( <ChatTable 
+                        handleGetMessage={this.props.handleGetMessage}
+                        state={this.props.state} />
                        )
                     }}/>
                     <Route path='/app/profile' render={()=>{

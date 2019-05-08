@@ -2,7 +2,9 @@
   border-right: 1px solid black;
   min-height: 100vmin;
 }
-
+.choose{
+  background: #bd878782!important;
+}
 .form-switch {
   display: inline-block;
   cursor: pointer;

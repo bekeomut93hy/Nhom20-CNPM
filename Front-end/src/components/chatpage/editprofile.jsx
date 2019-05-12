@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import UploadImage from "./uploadImage"
 import { storage } from '../firebase/index'
 import { withRouter } from 'react-router-dom'
 import Swal from 'sweetalert2'
 class editprofile extends Component {
     state = {
-        upload: false,
         deleteImage: null,
     }
     _handleAddImage = () => {
@@ -38,50 +36,89 @@ class editprofile extends Component {
                 })
             },
             allowOutsideClick: () => !Swal.isLoading()
-        }).then((result) => {
+        }).then(async ( result) => {
             if (result.value) {
-                Swal.fire({
+                await Swal.fire({
                     type: 'success',
                     title: 'Thành công',
                     text: 'Tải ảnh lên thành công',
                 })
+                window.location.reload();
             }
+
         })
     }
     _handleDeleteImage = async (evt) => {
         await this.setState({
             deleteImage: evt.target.src
         })
-        Swal.fire({
-            title: 'Bạn chắc chắn chứ?',
-            text: "Ảnh đã xóa không thể hồi phục",
-            type: 'warning',
+        await Swal.fire({
+            title: "Đặt or Xóa",
+            type: "question",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Đồng ý'
+            confirmButtonText: "Đặt ảnh",
+            cancelButtonText: "Xóa ảnh",
+            confirmButtonColor: "#fd267d",
+            cancelButtonColor: "#3085d6",
+            showCloseButton : true,
+            animation: false,
+            customClass: {
+                popup: 'animated heartBeat'
+            }
         }).then(async (result) => {
-            await storage.refFromURL(this.state.deleteImage).delete();
-            await Axios({
-                url: "http://localhost:3001/auth/deleteImage",
-                withCredentials: true,
-                method: "post",
-                data: {
-                    url: this.state.deleteImage
-                }
-            }).then((res) => {
-                console.log("ok");
-            }).catch(err => {
-                console.log(err);
-            })
-            console.log(this.state.deleteImage);
+            console.log(result)
             if (result.value) {
+                await Axios({
+                    url: "http://localhost:3001/auth/chooseAvatar",
+                    withCredentials: true,
+                    method: "post",
+                    data: {
+                        url: this.state.deleteImage
+                    }
+                }).then((res)=>{}).catch(err=>{console.log(err.message)});
+                await Swal.fire({
+                    type: 'success',
+                    title: 'Thành công',
+                    text: 'Thành công',
+                })
+                window.location.reload();
+            }
+            else if (result.dismiss === "cancel") {
+                await Swal.fire({
+                    title: 'Bạn chắc chắn chứ?',
+                    text: "Ảnh đã xóa không thể hồi phục",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đồng ý',
+                }).then(async (result) => {
+                    if(result.value){
+                    await storage.refFromURL(this.state.deleteImage).delete();
+                    await Axios({
+                        url: "http://localhost:3001/auth/deleteImage",
+                        withCredentials: true,
+                        method: "post",
+                        data: {
+                            url: this.state.deleteImage
+                        }
+                    }).then((res) => {
+                        console.log("ok");
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                    console.log(this.state.deleteImage);
+                    if (result.value) {
 
-                Swal.fire(
-                    'Đã xóa',
-                    'Ảnh đã xóa thành công',
-                    'success'
-                )
+                        await Swal.fire(
+                            'Đã xóa',
+                            'Ảnh đã xóa thành công',
+                            'success'
+                        )
+                        window.location.reload();
+                    }
+                }
+                })
             }
         })
     }
@@ -140,12 +177,9 @@ class editprofile extends Component {
                     </div>
 
                 </div>
-                {
-                    this.state.upload === true ? <UploadImage userId={this.props.state._id} /> : null
-                }
                 <div className="row">
                     <div className="col-12 title ml-2">
-                        <p style = {{fontWeight: "bold"}}> Giới thiệu về {this.props.state.name}</p>
+                        <p style={{ fontWeight: "bold" }}> Giới thiệu về {this.props.state.name}</p>
                     </div>
                     <div className="col-12">
                         <div className="input-group">
@@ -155,22 +189,22 @@ class editprofile extends Component {
                 </div>
                 <div className="row">
                     <div className="col-12 ml-2 title mt-3">
-                        <p style = {{fontWeight: "bold"}}> Trường </p>
+                        <p style={{ fontWeight: "bold" }}> Trường </p>
                     </div>
                     <div className="col-12">
                         <div className="input-group input-group-sm mb-3">
-                            <input placeholder="Thêm tên trường" id="school" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                            <input placeholder="Thêm tên trường" id="school" type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
                         </div>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12 ml-2 title">
-                        <p style = {{fontWeight: "bold"}}> Giới tính </p>
+                        <p style={{ fontWeight: "bold" }}> Giới tính </p>
                     </div>
                     <div className="col-12">
                         <select id="gender" className="custom-select custom-select-sm">
                             <option defaultValue value={this.props.state.usergender}>{this.props.state.usergender}</option>
-                            <option value={this.props.state.usergender==="Nam"?"Nữ" : "Nam"}>{this.props.state.usergender==="Nam"?"Nữ" : "Nam"}</option>
+                            <option value={this.props.state.usergender === "Nam" ? "Nữ" : "Nam"}>{this.props.state.usergender === "Nam" ? "Nữ" : "Nam"}</option>
                         </select>
                     </div>
                 </div>

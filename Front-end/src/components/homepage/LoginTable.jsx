@@ -20,7 +20,7 @@ class LoginTable extends Component {
     }
     render() {
         return (
-            <div id="logintable" className="row">
+            <div id="logintable" className="row mx-0 my-0">
                 {
                     this.state.loginSdt === false ?
                         <LoginByFb closeLogin={this._closeLogin} logInWithContact={this._logInWithContact} /> :

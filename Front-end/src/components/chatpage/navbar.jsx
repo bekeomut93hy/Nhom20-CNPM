@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ItemMes from "./itemmes"
 import ItemKetdoi from "./itemketdoi"
+import {Link} from 'react-router-dom'
 class navbar extends Component {
     ChangeLoveMode = () => {
         const mode = false;
@@ -14,17 +15,17 @@ class navbar extends Component {
         return (
             <div className="row animated fadeIn">
                 <div className="col-12">
-                    <ul className="nav nav-fill mr-2" style = {{fontWeight: "bold", cursor: "pointer", fontSize: "20px"}}>
+                    <ul className="nav nav-fill mr-2 mt-3" style = {{fontWeight: "bold", cursor: "pointer", fontSize: "20px"}}>
                         <li onClick={this.ChangeLoveMode} className="nav-item hvr-underline-from-center" style = {{paddingLeft: "10px"}}>
                             <span > Kết đôi </span>
                         </li>
-                        <li onClick={this.ChangeMessMode} className="nav-item hvr-underline-from-center ">
-                            <span  > Tin nhắn</span>
+                        <li onClick={this.ChangeMessMode} className="nav-item hvr-underline-from-center " style={{listStyle:"none"}}>
+                            <Link to="/app/message" style={{color:"#212529", textDecoration:"none"}}><span> Tin nhắn</span>  </Link>
                         </li>
                     </ul>
                 </div>
                 {
-                    this.props.mode === false ? <ItemKetdoi state={this.props.state}/> : <ItemMes/>
+                    this.props.mode === false ? <ItemKetdoi state={this.props.state}/> : <ItemMes state={this.props.state}/>
                 }
             </div>
         );

@@ -75,16 +75,17 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   animation: animatezoom 0.5s;
 }
-.close {
+#login .close {
   right: 25px;
   color: #000;
   font-size: 35px;
   line-height: 35px;
   font-weight: bold;
   transition: all 0.5s;
+  margin-top: -10px
 }
-.close:hover,
-.close:focus {
+#login .close:hover,
+#login .close:focus {
   color: red;
   cursor: pointer;
   transform: rotate(360deg);

@@ -50,7 +50,7 @@ class infortable extends Component {
                                 <div className="ml-2">
                                     <span> Hiển thị tôi trên UET Tinder</span>
                                 </div>
-                                <SwitchButton />
+                                <SwitchButton status={!this.props.setting.status} />
                             </div>
 
                             <div className="row" style={styleRow}>

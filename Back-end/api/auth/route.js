@@ -15,10 +15,10 @@ router.get("/getId", async (req, res) => {
     if (req.session.user) {
         const _id = req.session.user._id;
         const user = await UserModel.findById(_id).exec();
-        res.status(200).json({ user: user });
+        res.status(200).json({ user: user  });
     }
     else
-        res.status(200).json({ user: "Unknown" });
+        res.status(200).json({ logout : true });
 })
 // check login
 router.get("/isLoggin", async (req, res) => {
@@ -210,6 +210,13 @@ router.post("/editProfile", async (req, res) => {
     await UserModel.updateOne({ _id: req.body._id }, { $set: { introduce: req.body.introduce, school: req.body.school, gender: req.body.gender } });
     res.status(201).json({ message: "OK" });
 })
+// change Status
+router.post("/changeStatus", async (req,res)=>{
+    const userId= req.session.user._id;
+    const status = !Boolean(req.body.status);
+    await UserModel.updateOne({_id : userId}, {$set:{isHide : status}});
+    res.status(201).json({message : "OK"});
+})
 // upload image
 router.post("/uploadImage", async (req, res) => {
     try {
@@ -217,6 +224,18 @@ router.post("/uploadImage", async (req, res) => {
         const userId = req.session.user._id;
         await UserModel.updateOne({ _id: userId }, { $push: { avatarUrl: url } })
         res.status(201).json({ message: "OK" });
+    } catch (error) {
+        res.status(501).end(error);
+    }
+})
+// choose Avatar 
+router.post("/chooseAvatar", async (req,res)=>{
+    try {
+        const userId= req.session.user._id;
+        const url = req.body.url;
+        await UserModel.updateOne({ _id: userId }, { $pull: { avatarUrl: url } });
+        await UserModel.updateOne({_id : userId} , {$push : { avatarUrl : {$each : [url],  $position : 0}}})
+        res.status(201).json({message : "OK"});
     } catch (error) {
         res.status(501).end(error);
     }
@@ -252,7 +271,7 @@ router.get("/getInfoPeople", async (req, res) => {
             const user = await UserModel.findById(THArray[i], "name birthday introduce school avatarUrl gender contact age");
             userArray.push(user)
         }
-        res.status(200).send(JSON.stringify(userArray));
+        res.status(200).json(JSON.stringify(userArray));
     } catch (error) {
         res.status(500).end(error.message);
     }
@@ -278,6 +297,7 @@ router.get("/lookingPeople", async (req, res) => {
         const LikeArray = Array.from((await UserModel.findById(userId, "Like")).Like).map(item => item.id);
         const FindPeople = await UserModel.find({
             $and: [
+                { isHide : false},
                 { _id: { $not: { $eq: userId } } },
                 { $and: [{ age: { $gte: 18 }, age: { $lte: Number(lookupAge) } }] },
                 { gender: lookupGender },

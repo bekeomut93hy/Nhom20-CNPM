@@ -17,9 +17,11 @@ class chatpage extends Component {
         school: '',
         verify: null,
         usergender: '',
+        status: '',
         gender: null,
         infoModeMess: null,
         listItemMatch: null,
+        listMessage : null,
     }
     async componentWillMount() {
         await Axios({
@@ -27,23 +29,26 @@ class chatpage extends Component {
             withCredentials: true,
             method: "get",
         }).then(async (res) => {
-            const current = new Date().getFullYear();
-            const birth = new Date(res.data.user.birthday).getFullYear();
-            await this.setState({
-                _id: res.data.user._id,
-                verify: res.data.user.verify,
-                name: res.data.user.name,
-                email: res.data.user.email,
-                introduce: res.data.user.introduce,
-                school: res.data.user.school,
-                contact: res.data.user.contact,
-                avatarUrl: res.data.user.avatarUrl,
-                usergender: res.data.user.gender,
-                gender: res.data.user.lookingGender,
-                age: current - birth,
-                rangeAge: res.data.user.rangeAge,
-                
-            });
+            if (res.data.logout) { this.props.history.push('/') ; window.location.reload()    }
+            else {
+                const current = new Date().getFullYear();
+                const birth = new Date(res.data.user.birthday).getFullYear();
+                await this.setState({
+                    _id: res.data.user._id,
+                    status: res.data.user.isHide,
+                    verify: res.data.user.verify,
+                    name: res.data.user.name,
+                    email: res.data.user.email,
+                    introduce: res.data.user.introduce,
+                    school: res.data.user.school,
+                    contact: res.data.user.contact,
+                    avatarUrl: res.data.user.avatarUrl,
+                    usergender: res.data.user.gender,
+                    gender: res.data.user.lookingGender,
+                    age: current - birth,
+                    rangeAge: res.data.user.rangeAge,
+                });
+            }
         }).catch(err => {
             console.log(err);
         })
@@ -57,6 +62,11 @@ class chatpage extends Component {
             })
         }).catch(err => {
             console.log(err);
+        })
+    }
+    _handleGetMessage = (listarray)=>{
+        this.setState({
+            listMessage : listarray
         })
     }
     _handleChangeAge = (e) => {
@@ -114,6 +124,7 @@ class chatpage extends Component {
                     />
                     <RightSide
                         state={this.state}
+                        handleGetMessage={this._handleGetMessage}
                     />
                 </Router>
             </div>
